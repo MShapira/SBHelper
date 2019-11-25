@@ -3,15 +3,18 @@ from django.utils import timezone
 
 
 class Storage(models.Model):
-    now = timezone.now()
-    creation_date = models.DateTimeField('creation date', default=now)
-    last_edition = models.DateTimeField('edition date', default=now)
+    name = models.CharField(max_length=200)
+    creation_date = models.DateTimeField('creation date', auto_now_add=True)
+    last_edition = models.DateTimeField('edition date', auto_now=True)
+
+    def __str__(self):
+        return self.name
 
 
 class StorageAction(models.Model):
     now = timezone.now()
     name = models.CharField(max_length=200)
-    date = models.DateTimeField('creation date', default=now)
+    date = models.DateTimeField('creation date', auto_now_add=True)
     action_date = models.DateTimeField('real date', default=now)
     storage = models.ForeignKey(Storage, on_delete=models.CASCADE)
     type = models.CharField(max_length=8, default='Purchase')
@@ -23,13 +26,13 @@ class StorageAction(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=200)
     purchase_date = models.DateTimeField('date of purchase')
-    sale_date = models.DateTimeField('date of sold', blank=True)
+    sale_date = models.DateTimeField('date of sold', blank=True, null=True)
     storage = models.ForeignKey(Storage, on_delete=models.CASCADE)
-    batch_code = models.CharField(max_length=10, blank=True)
-    storage_action = models.ForeignKey(StorageAction, on_delete=models.CASCADE, blank=True)
+    batch_code = models.CharField(max_length=10, blank=True, null=True)
+    storage_action = models.ForeignKey(StorageAction, on_delete=models.CASCADE, blank=True, null=True)
     purchase_price = models.DecimalField(max_digits=6, decimal_places=2)
-    sale_price = models.DecimalField(max_digits=6, decimal_places=2, default=purchase_price, blank=True)
-    producer_link = models.URLField(blank=True)
+    sale_price = models.DecimalField(max_digits=6, decimal_places=2, default=purchase_price, blank=True, null=True)
+    producer_link = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.name

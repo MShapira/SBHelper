@@ -7,7 +7,7 @@ class StorageView(generic.ListView):
     context_object_name = 'storage_items'
 
     def get_queryset(self):
-        return Storage.objects.get(Product).order_by('date of purchase')
+        return Storage.objects.get(product=Product).order_by('date of purchase')
 
 
 class ProductView(generic.DetailView):
