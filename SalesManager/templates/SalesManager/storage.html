@@ -1,0 +1,9 @@
+{% if storage_items %}
+    <ul>
+    {% for product in storage_items %}
+        <li><a href="{% url 'SalesManager:product' product.id %}">{{ product.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Your storage is empty.</p>
+{% endif %}
