@@ -26,9 +26,9 @@ class Product(models.Model):
     sale_date = models.DateTimeField('date of sold', blank=True)
     storage = models.ForeignKey(Storage, on_delete=models.CASCADE)
     batch_code = models.CharField(max_length=10, blank=True)
-    storage_action = models.ForeignKey(StorageAction, on_delete=models.CASCADE)
+    storage_action = models.ForeignKey(StorageAction, on_delete=models.CASCADE, blank=True)
     purchase_price = models.DecimalField(max_digits=6, decimal_places=2)
-    sale_price = models.DecimalField(max_digits=6, decimal_places=2, default=purchase_price)
+    sale_price = models.DecimalField(max_digits=6, decimal_places=2, default=purchase_price, blank=True)
     producer_link = models.URLField(blank=True)
 
     def __str__(self):
