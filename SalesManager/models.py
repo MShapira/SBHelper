@@ -16,7 +16,7 @@ class StorageAction(models.Model):
     name = models.CharField(max_length=200)
     date = models.DateTimeField('creation date', auto_now_add=True)
     action_date = models.DateTimeField('real date', default=now)
-    storage = models.ForeignKey(Storage, on_delete=models.CASCADE)
+    storage = models.ForeignKey(to=Storage, related_name="actions", on_delete=models.CASCADE)
     type = models.CharField(max_length=8, default='Purchase')
 
     def __str__(self):
@@ -27,9 +27,9 @@ class Product(models.Model):
     name = models.CharField(max_length=200)
     purchase_date = models.DateTimeField('date of purchase')
     sale_date = models.DateTimeField('date of sold', blank=True, null=True)
-    storage = models.ForeignKey(Storage, on_delete=models.CASCADE)
+    storage = models.ForeignKey(to=Storage, related_name="products", on_delete=models.CASCADE)
     batch_code = models.CharField(max_length=10, blank=True, null=True)
-    storage_action = models.ForeignKey(StorageAction, on_delete=models.CASCADE, blank=True, null=True)
+    storage_action = models.ForeignKey(to=StorageAction, related_name="products", on_delete=models.CASCADE, blank=True, null=True)
     purchase_price = models.DecimalField(max_digits=6, decimal_places=2)
     sale_price = models.DecimalField(max_digits=6, decimal_places=2, default=purchase_price, blank=True, null=True)
     producer_link = models.URLField(blank=True, null=True)
