@@ -33,6 +33,7 @@ class Product(models.Model):
     purchase_price = models.DecimalField(max_digits=6, decimal_places=2)
     sale_price = models.DecimalField(max_digits=6, decimal_places=2, default=purchase_price, blank=True, null=True)
     producer_link = models.URLField(blank=True, null=True)
+    expiration_date = models.DateTimeField('expiration date', blank=True, null=True)
 
     def __str__(self):
         return self.name
