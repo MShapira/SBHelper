@@ -1,7 +1,12 @@
 {% if storage_items %}
     <ul>
-    {% for product in storage_items %}
+    {% for product in storage_items.0 %}
         <li><a href="{% url 'SalesManager:product' product.id %}">{{ product.name }}</a></li>
+    {% endfor %}
+    </ul>
+    <ul>
+    {% for action in storage_items.1 %}
+        <li><a href="{% url 'SalesManager:action' action.id %}">{{ action.name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

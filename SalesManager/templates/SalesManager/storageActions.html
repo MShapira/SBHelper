@@ -1,9 +1,0 @@
-{% if storage_actions %}
-    <ul>
-    {% for action in storage_actions %}
-        <li><a href="{% url 'SalesManager:storageAction' storageAction.id %}">{{ StorageAction.name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>You didn't do anything yet.</p>
-{% endif %}
