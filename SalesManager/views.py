@@ -17,7 +17,16 @@ class ProductView(generic.DetailView):
     model = Product
     template_name = 'SalesManager/product.html'
 
+    def get_queryset(self):
+        storage = Storage.objects.get(id=1)
+        item = storage.items.get(products)
+
 
 class StorageActionView(generic.DetailView):
     model = StorageAction
     template_name = 'SalesManager/storageAction.html'
+
+
+class ItemView(generic.DeleteView):
+    model = Item
+    template_name = 'SalesManager/Item.html'

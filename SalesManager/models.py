@@ -23,6 +23,16 @@ class StorageAction(models.Model):
         return self.name
 
 
+class Item(models.Model):
+    name = models.CharField(max_length=200)
+    producer_link = models.URLField(blank=True, null=True)
+    catalog_price = models.DecimalField(max_digits=6, decimal_places=2)
+    storage = models.ForeignKey(to=Storage, related_name="Items", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
     name = models.CharField(max_length=200)
     purchase_date = models.DateTimeField('date of purchase')
@@ -32,10 +42,9 @@ class Product(models.Model):
     storage_action = models.ForeignKey(to=StorageAction, related_name="products", on_delete=models.CASCADE, blank=True, null=True)
     purchase_price = models.DecimalField(max_digits=6, decimal_places=2)
     sale_price = models.DecimalField(max_digits=6, decimal_places=2, default=purchase_price, blank=True, null=True)
-    producer_link = models.URLField(blank=True, null=True)
     expiration_date = models.DateTimeField('expiration date', blank=True, null=True)
+    item = models.ForeignKey(to=Item, related_name="products", on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.name
-
 
