@@ -3,7 +3,7 @@ from django.utils import timezone
 
 
 class Storage(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, default='')
     creation_date = models.DateTimeField('creation date', auto_now_add=True)
     last_edition = models.DateTimeField('edition date', auto_now=True)
 
@@ -12,10 +12,9 @@ class Storage(models.Model):
 
 
 class StorageAction(models.Model):
-    now = timezone.now()
     name = models.CharField(max_length=200)
     date = models.DateTimeField('creation date', auto_now_add=True)
-    action_date = models.DateTimeField('real date', default=now)
+    action_date = models.DateTimeField('real date', default=timezone.now)
     storage = models.ForeignKey(to=Storage, related_name="actions", on_delete=models.CASCADE)
     type = models.CharField(max_length=8, default='Purchase')
 
