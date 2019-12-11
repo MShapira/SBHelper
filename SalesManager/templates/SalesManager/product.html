@@ -1,8 +1,17 @@
-<h1>{{ product.name }}</h1>
-<p>Purchase date:  {{ product.purchase_date }}</p>
-<p>Purchase price:  {{ product.purchase_price }}</p>
-<p>Batch code: {{ product.batch_code }}</p>
-<p>Producer link:  {{ product.producer_link }}</p>
-<p>Expiration date:  {{ product.expiration_date }}</p>
+<!DOCTYPE html>
+<head>
+  {% load static %}
+  <script src="{% static 'main.js' %}"></script>
+  <title>Site</title>
+</head>
+<body>
+    <h1>{{ product.name }}</h1>
+    <p>Purchase date:  {{ product.purchase_date }}</p>
+    <p>Purchase price:  {{ product.purchase_price }}</p>
+    <p>Batch code: {{ product.batch_code }}</p>
+    <p>Producer link:  {{ product.producer_link }}</p>
+    <p>Expiration date:  {{ product.expiration_date }}</p>
 
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+</body>
+</html>
