@@ -1,5 +1,13 @@
 from django.db import models
-from django.utils import timezone
+
+
+class Item(models.Model):
+    name = models.CharField(max_length=200)
+    producer_link = models.URLField(blank=True, null=True)
+    catalog_price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    def __str__(self):
+        return self.name
 
 
 class Storage(models.Model):
@@ -14,7 +22,7 @@ class Storage(models.Model):
 class StorageAction(models.Model):
     name = models.CharField(max_length=200)
     date = models.DateTimeField('creation date', auto_now_add=True)
-    action_date = models.DateTimeField('real date', default=timezone.now)
+    action_date = models.DateTimeField('real date', auto_now_add=True)
     storage = models.ForeignKey(to=Storage, related_name="actions", on_delete=models.CASCADE)
     type = models.CharField(max_length=8, default='Purchase')
 
@@ -22,19 +30,9 @@ class StorageAction(models.Model):
         return self.name
 
 
-class Item(models.Model):
-    name = models.CharField(max_length=200)
-    producer_link = models.URLField(blank=True, null=True)
-    catalog_price = models.DecimalField(max_digits=6, decimal_places=2)
-    storage = models.ForeignKey(to=Storage, related_name="Items", on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-
-
 class Product(models.Model):
     name = models.CharField(max_length=200)
-    purchase_date = models.DateTimeField('date of purchase')
+    purchase_date = models.DateTimeField('date of purchase', auto_now_add=True)
     sale_date = models.DateTimeField('date of sold', blank=True, null=True)
     storage = models.ForeignKey(to=Storage, related_name="products", on_delete=models.CASCADE)
     batch_code = models.CharField(max_length=10, blank=True, null=True)

@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'SalesManager.apps.SalesmanagerConfig',
-    'Helper.apps.HelperConfig',
+    'Users.apps.UsersConfig'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
